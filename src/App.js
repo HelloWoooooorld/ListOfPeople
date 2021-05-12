@@ -1,8 +1,10 @@
 import Routes from './Routes'
+import Header from './components/header'
 
 function App() {
   return (
     <>
+      <Header />
       <Routes />
     </>
   );
@@ -10,3 +12,5 @@ function App() {
 
 
 export default App;
+
+
