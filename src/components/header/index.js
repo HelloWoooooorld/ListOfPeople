@@ -5,8 +5,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-
-const useStyles = makeStyles((theme) => ({
+import {Link} from 'react-router-dom';
+ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
     },
@@ -28,10 +28,9 @@ const Header = ({ isAuthenticated, logout }) => {
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
-                        Login
+                        User App
                     </Typography>
                     {isAuthenticated ? <Button color="inherit" onClick={logout}>Logout</Button> : <Button color="inherit">Login</Button>}
-
                 </Toolbar>
             </AppBar>
         </div>

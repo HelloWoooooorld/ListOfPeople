@@ -10,7 +10,7 @@ import {
 import ProtectedRoute from "./ProtectedRoute";
 import Home from "./screens/home";
 import Login from "./screens/login";
-import Header from './components/header'
+// import Header from './components/header'
 
 function Routes() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -26,12 +26,12 @@ function Routes() {
     return (
         <div>
             <Router>
-                <Switch>
+                {/* <Switch>
                     <Route path="/login" component={Login} />
-                    <Route path="/" exact>
+                    <Route path="/" exact >
                         {isAuthenticated ?
                             <Redirect to="/" />
-                            : <Redirect to="/login" />}
+                            : <Redirect to="/" />}
                     </Route>
                     <ProtectedRoute
                         isAuthenticated={isAuthenticated}
@@ -39,8 +39,11 @@ function Routes() {
                         logout={logout}
                         component={Header}
                     />
-                    {/* <Route path="/user/:id" component={login}/> */}
-
+                </Switch> */}
+                <Switch>
+                    <Route path='/login' component={Login}/>
+                    <Route path='/' component={Home}/>
+                    {/* <Route path='/user/:id' component={UserId} */}
                 </Switch>
             </Router>
         </div>

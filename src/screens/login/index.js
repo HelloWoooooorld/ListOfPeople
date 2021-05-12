@@ -3,7 +3,8 @@ import * as yup from 'yup';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box'
+import Avatar from '@material-ui/core/Avatar';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 const validationSchema = yup.object({
     email: yup
@@ -30,6 +31,10 @@ const useStyles = makeStyles((theme) => ({
         width: '100%', // Fix IE 11 issue.
         marginTop: theme.spacing(1),
     },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+    },
 
 }));
 
@@ -48,6 +53,9 @@ const Login = () => {
 
     return (
         <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+                <LockOutlinedIcon />
+            </Avatar>
             <form className={classes.root} onSubmit={formik.handleSubmit}>
                 <TextField
                     fullWidth
