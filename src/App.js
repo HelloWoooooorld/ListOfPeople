@@ -1,16 +1,12 @@
-import Routes from './Routes'
-import Header from './components/header'
+import Routes from './Routes';
 
 function App() {
   return (
     <>
-      <Header />
-      <Routes />
+      <Routes/>
     </>
   );
 }
 
-
 export default App;
-
 

@@ -1,53 +1,51 @@
-import React, { useState } from "react";
 import {
     BrowserRouter as Router,
     Route,
     Switch,
     Redirect,
-    Link,
 } from "react-router-dom";
+import Login from './pages/Login/index';
+import Home from './pages/Home/index'
+import Table from './pages/Table/index';
+import TableId from './pages/TableId/index'
+import Header from './components/header';
+import {useState} from 'react'
 
-import ProtectedRoute from "./ProtectedRoute";
-import Home from "./screens/home";
-import Login from "./screens/login";
-// import Header from './components/header'
+const Routes = () => {
 
-function Routes() {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [auth, setAuth] = useState(false)
+    const signIn = () => setAuth(true)
+    const signOut = () => setAuth(false)
 
-    const login = () => {
-        setIsAuthenticated(true);
-    };
 
-    const logout = () => {
-        setIsAuthenticated(false);
-    };
-    const AuthContext = React.createContext(isAuthenticated);
+  
+
+    const PrivateRoute = ({ component: Component, ...rest }) => (
+        <Route {...rest} render={(props) => (
+            auth ? <Component {...props} /> : <Redirect to='/login' />
+        )}
+
+        />
+    )
+
     return (
-        <div>
-            <Router>
-                {/* <Switch>
-                    <Route path="/login" component={Login} />
-                    <Route path="/" exact >
-                        {isAuthenticated ?
-                            <Redirect to="/" />
-                            : <Redirect to="/" />}
-                    </Route>
-                    <ProtectedRoute
-                        isAuthenticated={isAuthenticated}
-                        path="/"
-                        logout={logout}
-                        component={Header}
-                    />
-                </Switch> */}
-                <Switch>
-                    <Route path='/login' component={Login}/>
-                    <Route path='/' component={Home}/>
-                    {/* <Route path='/user/:id' component={UserId} */}
-                </Switch>
-            </Router>
-        </div>
-    );
+        <Router>
+            <Header isauth={auth} signout={signOut} />
+            <Switch>
+                <Route exact path='/'  >
+                    <Home />
+                </Route>
+                <Route path='/login'>
+                    <Login auth={signIn} />
+                </Route>
+                <Route path='/table/:id' >
+                    <TableId />
+                </Route>
+                <PrivateRoute path='/table' component={Table} />
+            </Switch>
+        </Router>
+
+    )
 }
 
 export default Routes;

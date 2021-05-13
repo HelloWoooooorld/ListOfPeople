@@ -5,6 +5,8 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { useHistory } from "react-router-dom";
+
 
 const validationSchema = yup.object({
     email: yup
@@ -38,8 +40,10 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const Login = () => {
+const Login = ({auth}) => {
     const classes = useStyles();
+    let history = useHistory();
+
     const formik = useFormik({
         initialValues: {
             email: 'foobar@example.com',
@@ -47,6 +51,8 @@ const Login = () => {
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
+            auth();
+            history.push("/table");
             console.log(JSON.stringify(values, null, 2));
         },
     });
