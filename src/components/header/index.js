@@ -31,6 +31,10 @@ const Header = ({ isauth, signout }) => {
         history.push("/login");
     }
 
+    const toTable = () => {
+        history.push("/table");
+    }
+
     return (
         <div className={classes.root}>
             <AppBar position="static">
@@ -50,8 +54,8 @@ const Header = ({ isauth, signout }) => {
                                 <Button color="inherit" onClick={signout}>
                                     <Link to="/">Logout</Link>
                                 </Button>
-                                <Button color="inherit" >
-                                    <Link to="/table">Table</Link>
+                                <Button color="inherit" onClick={toTable} >
+                                    Table
                                 </Button>
                             </>
                         ) : (
