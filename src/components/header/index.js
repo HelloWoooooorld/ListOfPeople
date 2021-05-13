@@ -8,6 +8,8 @@ import {
     BrowserRouter as Router,
     Link
 } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -22,6 +24,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = ({ isauth, signout }) => {
     const classes = useStyles();
+    let history = useHistory();
+
+
+    const toLogin = () => {
+        history.push("/login");
+    }
 
     return (
         <div className={classes.root}>
@@ -34,7 +42,7 @@ const Header = ({ isauth, signout }) => {
                         aria-label="menu"
                     ></IconButton>
                     <Typography variant="h6" className={classes.title}>
-                        User App
+                        <Link to="/">User App</Link>
                     </Typography>
                     <Router>
                         {isauth ? (
@@ -47,9 +55,11 @@ const Header = ({ isauth, signout }) => {
                                 </Button>
                             </>
                         ) : (
-                            <Button color="inherit">
-                                <Link to="/login">Login</Link>
-                            </Button>
+                         
+                                <Button color="inherit" onClick={toLogin}>
+                                    Login
+                                </Button>
+                        
                         )}
                     </Router>
                 </Toolbar>

@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import Login from './pages/Login/index';
 import Home from './pages/Home/index'
-import Table from './pages/Table/index';
+import Table from './pages/UserTable/index';
 import TableId from './pages/TableId/index'
 import Header from './components/header';
 import {useState} from 'react'
@@ -17,8 +17,6 @@ const Routes = () => {
     const signIn = () => setAuth(true)
     const signOut = () => setAuth(false)
 
-
-  
 
     const PrivateRoute = ({ component: Component, ...rest }) => (
         <Route {...rest} render={(props) => (
