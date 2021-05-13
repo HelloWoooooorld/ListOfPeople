@@ -1,6 +1,3 @@
-
-
-
 import { useState, useEffect } from "react";
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -10,7 +7,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
+import { useHistory } from "react-router-dom";
+import TableId from '../TableId/index';
 
 const StyledTableRow = withStyles((theme) => ({
     root: {
@@ -28,7 +26,9 @@ const useStyles = makeStyles({
 
 const UserTable = () => {
     const classes = useStyles();
-    const [users, setUsers] = useState([])
+    const [users, setUsers] = useState([]);
+    let history = useHistory();
+
 
     useEffect(() => {
         fetch('https://jsonplaceholder.typicode.com/users')
@@ -37,10 +37,12 @@ const UserTable = () => {
             .catch((error) => console.log(error.message));
     }, []);
 
-    function createData(id, name, username, email, phone, website) {
+    const createData = (id, name, username, email, phone, website) => {
         return { id, name, username, email, phone, website };
     }
-    
+
+    const handleClick = (id) => history.push(`table/${id}`);
+
     const rows = users.map(item => createData(item.id, item.name, item.username, item.email, item.phone, item.website))
 
     return (
@@ -58,7 +60,7 @@ const UserTable = () => {
                 </TableHead>
                 <TableBody>
                     {rows.map((row) => (
-                        <StyledTableRow key={row.name}>
+                        <StyledTableRow key={row.id} onClick={() => handleClick(row.id)}>
                             <TableCell align="right">{row.id}</TableCell>
                             <TableCell align="right">{row.name}</TableCell>
                             <TableCell align="right">{row.username}</TableCell>
