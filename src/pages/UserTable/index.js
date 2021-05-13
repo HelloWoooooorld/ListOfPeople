@@ -8,7 +8,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { useHistory } from "react-router-dom";
-import TableId from '../TableId/index';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+
 
 const StyledTableRow = withStyles((theme) => ({
     root: {
@@ -26,9 +28,11 @@ const useStyles = makeStyles({
 
 const UserTable = () => {
     const classes = useStyles();
-    const [users, setUsers] = useState([]);
     let history = useHistory();
 
+    const [users, setUsers] = useState([]);
+    const [isFiltered, setIsFiltered] = useState(false)
+    const cellName = ['Id', 'Name', 'User name', 'Email', 'Phone', 'Website']
 
     useEffect(() => {
         fetch('https://jsonplaceholder.typicode.com/users')
@@ -44,18 +48,24 @@ const UserTable = () => {
     const handleClick = (id) => history.push(`table/${id}`);
 
     const rows = users.map(item => createData(item.id, item.name, item.username, item.email, item.phone, item.website))
+    console.log(rows);
+
+    
+    const sortedUsers = () => {
+        setIsFiltered(!false)
+        return rows.sort((a, b) => {
+            return b.id - a.id
+        })
+    }
+
+    const tableTitle = cellName.map(item => <TableCell key={item} align="right" onClick={() => sortedUsers()}> {isFiltered ?  <ArrowDownwardIcon/> :  <ArrowUpwardIcon/>} </TableCell>)
 
     return (
         <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="customized table">
                 <TableHead>
                     <StyledTableRow>
-                        <TableCell align="right">Id</TableCell>
-                        <TableCell align="right">Name</TableCell>
-                        <TableCell align="right">UserName</TableCell>
-                        <TableCell align="right">Email</TableCell>
-                        <TableCell align="right">Phone</TableCell>
-                        <TableCell align="right">Website</TableCell>
+                        {tableTitle}
                     </StyledTableRow>
                 </TableHead>
                 <TableBody>
