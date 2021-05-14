@@ -31,7 +31,7 @@ const UserTable = () => {
 
     const [users, setUsers] = useState([]);
     const [isFiltered, setIsFiltered] = useState(false);
-    const [sortConfig, setSortConfig] = useState(null);
+    const [sortedField, setSortedField] = useState('')
 
     useEffect(() => {
         fetch('https://jsonplaceholder.typicode.com/users')
@@ -50,19 +50,44 @@ const UserTable = () => {
         setIsFiltered(v => !v);
     };
 
+
     const rows = users.map(item => createData(item.id, item.name, item.username, item.email, item.phone, item.website))
 
-    const sortedUsers = () => {
-        toogle();
 
-    };
-    
+    function handleSort(field, arr = users) {
+        field = field.toLowerCase();
+        console.log(field, arr)
+        if (Number.isInteger(arr[0][field])) {
+            users.sort((a, b) => {
+                if (isFiltered) {
+                    return a.id - b.id;
+                } else {
+                    return b.id - a.id;
+                }
+            });
+        } else {
+            arr.sort((a, b) => {
+                console.log(field)
+
+                let valueA = a[field.trim()].toLowerCase();
+                let valueB = b[field.trim()].toLowerCase();
+
+                if (isFiltered) {
+                    return valueA > valueB ? 1 : -1;
+                } else {
+                    return valueA < valueB ? 1 : -1;
+                }
+            });
+        }
+        setSortedField(field);
+        setIsFiltered(val => !val);
+    }
     return (
         <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="customized table">
                 <TableHead>
                     <StyledTableRow>
-                        <HeaderTitle sortedUsers={sortedUsers} isFiltered={isFiltered} />
+                        <HeaderTitle handleSort={handleSort} isFiltered={isFiltered} />
                     </StyledTableRow>
                 </TableHead>
                 <TableBody>
@@ -78,3 +103,21 @@ export default UserTable;
 
 
 
+
+
+
+    // const sortedUsers = () => {
+    //     toogle();
+
+    // };
+
+    // function sortedUsers() {
+    //     users.sort((a, b) => {
+    //         if (isFiltered) {
+    //             return a.id - b.id;
+    //         } else {
+    //             return b.id - a.id;
+    //         }
+    //     });
+    //     setIsFiltered(val => !val);
+    // }

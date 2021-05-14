@@ -9,16 +9,18 @@ const useStyles = makeStyles({
     },
 });
 
-const HeaderTitle = ({ sortedUsers, isFiltered }) => {
+const HeaderTitle = ({ handleSort, isFiltered }) => {
     const classes = useStyles();
-    const cellName = ['Id', 'Name', 'User name', 'Email', 'Phone', 'Website']
+    const cellName = ['Id', 'Name', 'Username', 'Email', 'Phone', 'Website']
 
     return (
         cellName.map(item =>
             <TableCell
                 className={classes.cell}
-                key={item} align="right"
-                onClick={() => sortedUsers()}>
+                key={item} 
+                align="right"
+                name={item}
+                onClick={() => handleSort(item)}>
                 {isFiltered ? <>{item} <ArrowUpwardIcon /> </>
                     : <>{item} <ArrowDownwardIcon /> </>}
             </TableCell>
