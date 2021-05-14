@@ -81,7 +81,7 @@ const UserTable = () => {
             <Table className={classes.table} aria-label="customized table">
                 <TableHead>
                     <StyledTableRow>
-                        <HeaderTitle handleSort={handleSort} sortedField={sortedField} />
+                        <HeaderTitle handleSort={handleSort} sortedField={sortedField} isFiltered={isFiltered} />
                     </StyledTableRow>
                 </TableHead>
                 <TableBody>
