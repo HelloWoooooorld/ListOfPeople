@@ -46,18 +46,12 @@ const UserTable = () => {
 
     const handleClick = (id) => history.push(`table/${id}`);
 
-    const toogle = () => {
-        setIsFiltered(v => !v);
-    };
-
-
     const rows = users.map(item => createData(item.id, item.name, item.username, item.email, item.phone, item.website))
 
-
-    function handleSort(field, arr = users) {
+    function handleSort(field) {
         field = field.toLowerCase();
-        console.log(field, arr)
-        if (Number.isInteger(arr[0][field])) {
+        console.log(field)
+        if (Number.isInteger(users[0][field])) {
             users.sort((a, b) => {
                 if (isFiltered) {
                     return a.id - b.id;
@@ -66,7 +60,7 @@ const UserTable = () => {
                 }
             });
         } else {
-            arr.sort((a, b) => {
+            users.sort((a, b) => {
                 console.log(field)
 
                 let valueA = a[field.trim()].toLowerCase();
@@ -87,7 +81,7 @@ const UserTable = () => {
             <Table className={classes.table} aria-label="customized table">
                 <TableHead>
                     <StyledTableRow>
-                        <HeaderTitle handleSort={handleSort} isFiltered={isFiltered} />
+                        <HeaderTitle handleSort={handleSort} sortedField={sortedField} />
                     </StyledTableRow>
                 </TableHead>
                 <TableBody>

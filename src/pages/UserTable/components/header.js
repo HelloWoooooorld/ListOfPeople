@@ -9,7 +9,7 @@ const useStyles = makeStyles({
     },
 });
 
-const HeaderTitle = ({ handleSort, isFiltered }) => {
+const HeaderTitle = ({ handleSort, sortedField }) => {
     const classes = useStyles();
     const cellName = ['Id', 'Name', 'Username', 'Email', 'Phone', 'Website']
 
@@ -17,12 +17,16 @@ const HeaderTitle = ({ handleSort, isFiltered }) => {
         cellName.map(item =>
             <TableCell
                 className={classes.cell}
-                key={item} 
+                key={item}
                 align="right"
                 name={item}
                 onClick={() => handleSort(item)}>
-                {isFiltered ? <>{item} <ArrowUpwardIcon /> </>
-                    : <>{item} <ArrowDownwardIcon /> </>}
+                {sortedField === item.toLowerCase() ?
+                    <>
+                    {item} <ArrowDownwardIcon/></> :
+                    <>
+                    {item} <ArrowUpwardIcon/>
+                    </>}
             </TableCell>
         )
     )
