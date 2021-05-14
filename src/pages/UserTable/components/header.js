@@ -3,7 +3,6 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import { makeStyles } from '@material-ui/core/styles';
 
-
 const useStyles = makeStyles({
     cell: {
         cursor: 'pointer',
@@ -16,12 +15,12 @@ const HeaderTitle = ({ sortedUsers, isFiltered }) => {
 
     return (
         cellName.map(item =>
-            <TableCell 
-            className={classes.cell} 
-            key={item} align="right" 
-            onClick={() => sortedUsers()}> 
-            {isFiltered ? <>{item} <ArrowUpwardIcon /> </> 
-            : <>{item} <ArrowDownwardIcon /> </>} 
+            <TableCell
+                className={classes.cell}
+                key={item} align="right"
+                onClick={() => sortedUsers()}>
+                {isFiltered ? <>{item} <ArrowUpwardIcon /> </>
+                    : <>{item} <ArrowDownwardIcon /> </>}
             </TableCell>
         )
     )

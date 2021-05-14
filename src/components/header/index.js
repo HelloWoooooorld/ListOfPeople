@@ -22,10 +22,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Header = ({ isauth, signout }) => {
+const Header = ({ isAuth, signout }) => {
     const classes = useStyles();
     let history = useHistory();
-
 
     const toLogin = () => {
         history.push("/login");
@@ -49,7 +48,7 @@ const Header = ({ isauth, signout }) => {
                         <Link to="/">User App</Link>
                     </Typography>
                     <Router>
-                        {isauth ? (
+                        {isAuth ? (
                             <>
                                 <Button color="inherit" onClick={signout}>
                                     <Link to="/">Logout</Link>

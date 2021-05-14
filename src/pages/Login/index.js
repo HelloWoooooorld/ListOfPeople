@@ -1,12 +1,11 @@
 import { useFormik } from 'formik';
+import { useHistory } from "react-router-dom";
 import * as yup from 'yup';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { useHistory } from "react-router-dom";
-
 
 const validationSchema = yup.object({
     email: yup
@@ -40,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const Login = ({auth}) => {
+const Login = ({ auth }) => {
     const classes = useStyles();
     let history = useHistory();
 

@@ -7,37 +7,32 @@ import {
 import Login from './pages/Login/index';
 import Home from './pages/Home/index'
 import Table from './pages/UserTable/index';
-import TableId from './pages/TableId/index'
+import TableId from './pages/UserId/index'
 import Header from './components/header';
-import {useState} from 'react'
+import useDialog from './hooks/isAuthHook';
+
 
 const Routes = () => {
-
-    const [auth, setAuth] = useState(false)
-    const signIn = () => setAuth(true)
-    const signOut = () => setAuth(false)
-
+    const [isAuth, toogler] = useDialog();
 
     const PrivateRoute = ({ component: Component, ...rest }) => (
         <Route {...rest} render={(props) => (
-            auth ? <Component {...props} /> : <Redirect to='/login' />
-        )}
-
-        />
+            isAuth ? <Component {...props} /> : <Redirect to='/login' />
+        )} />
     )
 
     return (
         <Router>
-            <Header isauth={auth} signout={signOut} />
+            <Header isAuth={isAuth} signout={toogler} />
             <Switch>
                 <Route exact path='/'  >
                     <Home />
                 </Route>
                 <Route path='/login'>
-                    <Login auth={signIn} />
+                    <Login auth={toogler} />
                 </Route>
                 <Route path='/table/:id' >
-                    <TableId />
+                    <TableId isAuth={isAuth} />
                 </Route>
                 <PrivateRoute path='/table' component={Table} />
             </Switch>

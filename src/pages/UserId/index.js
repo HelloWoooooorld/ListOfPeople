@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useFormik } from 'formik';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
+
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -39,9 +40,9 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const TableId = () => {
+const TableId = ({isAuth}) => {
     const classes = useStyles();
-    let history = useHistory();
+    const history = useHistory();
     const loc = useLocation();
     const [userId, setUserId] = useState([])
 
@@ -51,6 +52,7 @@ const TableId = () => {
             .then((data) => setUserId(data))
             .catch((error) => console.log(error.message));
     }, []);
+
     const formik = useFormik({
         initialValues: {
             id: userId.id,
@@ -62,6 +64,7 @@ const TableId = () => {
         },
         onSubmit: async (values) => {
             await saveData(values);
+            history.push('/table')
         },
     });
 
@@ -99,13 +102,22 @@ const TableId = () => {
             <div className={classes.paper}>
                 <form className={classes.root} onSubmit={formik.handleSubmit}>
                     {result}
-                    <Button type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}>
-                        Change
-                    </Button>
+                    {isAuth ?
+                        <Button type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}>
+                            Change
+                        </Button> :
+                        <Button type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                            disabled>
+                            Change
+                        </Button>}
                 </form>
             </div>
         </>

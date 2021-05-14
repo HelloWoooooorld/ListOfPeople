@@ -1,11 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { useHistory } from "react-router-dom";
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import Paper from '@material-ui/core/Paper';
-import { useHistory } from "react-router-dom";
 import TableRow from '@material-ui/core/TableRow';
 import HeaderTitle from './components/header';
 import TableData from './components/tableData';
@@ -46,27 +46,17 @@ const UserTable = () => {
 
     const handleClick = (id) => history.push(`table/${id}`);
 
+    const toogle = () => {
+        setIsFiltered(v => !v);
+    };
+
     const rows = users.map(item => createData(item.id, item.name, item.username, item.email, item.phone, item.website))
 
-    const toogle = useCallback(() => {
-        setIsFiltered(v => !v);
-    }, [])
-
     const sortedUsers = () => {
-        rows.sort((a, b) => {
-            if (a.id < b.id) {
-                toogle();
-                return sortConfig === 'ascending' ? -1 : 1;
-            }
-            if (a.id > b.id) {
-                toogle();
-                return sortConfig === 'ascending' ? 1 : -1;
-            }
-            return 0;
-        });
-    }
+        toogle();
 
-
+    };
+    
     return (
         <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="customized table">
@@ -84,3 +74,7 @@ const UserTable = () => {
 }
 
 export default UserTable;
+
+
+
+
